@@ -11,3 +11,10 @@ after_success:
   - docker build -t partidaa/multi-nginx ./nginx
   - docker build -t partidaa/multi-server ./server
   - docker build -t partidaa/multi-worker ./worker
+#push images to dockerhub
+#login to CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+- docker push partidaa/multi-client
+- docker push partidaa/multi-nginx
+- docker push partidaa/multi-server
+- docker push partidaa/multi-worker
