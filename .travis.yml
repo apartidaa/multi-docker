@@ -1,0 +1,13 @@
+sudo: required
+services: 
+  - docker 
+before_install:
+  - docker build -t partidaa/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true partidaa/react-test npm test
+after_success:
+  - docker build -t partidaa/multi-client ./client
+  - docker build -t partidaa/multi-nginx ./nginx
+  - docker build -t partidaa/multi-server ./server
+  - docker build -t partidaa/multi-worker ./worker
